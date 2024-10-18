@@ -1,0 +1,46 @@
+http:
+  port: 8080
+apiEndpoints:
+  ms1:
+    host: localhost
+    paths: '/ms1'
+  ms2:
+    host: localhost
+    paths: '/ms2'
+  ms3:
+    host: localhost
+    paths: '/ms3'  
+serviceEndpoints:
+  httpbin:
+     url: 'https://httpbin.org'
+  ms1Service:
+    url: 'http://localhost:3000'
+  ms2Service:
+    url: 'http://localhost:3001'
+  ms3Service:
+    url: 'http://localhost:3002'  
+policies:
+  - proxy
+pipelines:
+  default:
+    apiEndpoints:
+      - ms1
+      - ms2
+      - ms3
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: ms1Service
+              changeOrigin: true
+      - proxy:
+          - action:
+              serviceEndpoint: ms2Service
+              changeOrigin: true
+      - proxy:
+          - action:
+              serviceEndpoint: ms3Service
+              changeOrigin: true        
+      - proxy:
+          - action:
+              serviceEndpoint: httpbin
+              changeOrigin: true        
