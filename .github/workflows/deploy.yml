@@ -3,7 +3,7 @@ name: Deploy Express Gateway to AWS ECS
 on:
   push:
     branches:
-      - main  # Change to your target branch
+      - master 
 
 jobs:
   build-and-deploy:
