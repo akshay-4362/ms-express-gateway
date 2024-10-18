@@ -28,12 +28,12 @@ jobs:
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | \
            docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
      
-    - name: Build Docker image for Service 1
-      run: |
-        docker build -t microservice-gateway .
-        docker tag microservice-gateway:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/microservice-gateway:latest
+      - name: Build Docker image for Service 1
+        run: |
+          docker build -t microservice-gateway .
+          docker tag microservice-gateway:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/microservice-gateway:latest
 
-    - name: Push Service 1 image to ECR
-      run: |
-        docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/microservice-gateway:latest
+      - name: Push Service 1 image to ECR
+        run: |
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/microservice-gateway:latest
 
